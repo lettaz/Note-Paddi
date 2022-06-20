@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, Output, Renderer2, ViewChild, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-note-card',
@@ -9,6 +10,9 @@ export class NoteCardComponent implements AfterViewInit {
 
   @Input() title: string = '';
   @Input() body: string = '';
+  @Input() link: string = '';
+
+  @Output('delete') deleteEvent: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('truncator')
   truncator!: ElementRef<HTMLElement> ;
@@ -26,7 +30,7 @@ export class NoteCardComponent implements AfterViewInit {
     
   }
 
-  ngAfterViewInit(): void{
+ngAfterViewInit(): void{
 //Work out if there is a text overflow and if not, then hide the trucator
 
 let style = window.getComputedStyle(this.bodyText.nativeElement, null);
@@ -37,6 +41,11 @@ if(this.bodyText.nativeElement.scrollHeight > viewableHeight){
 }else{
   this.renderer.setStyle(this.truncator.nativeElement, 'display', 'none'); 
 }
+}
+onXButtonClick(){
+  //Inform app that x button has been clicked
+
+  this.deleteEvent.emit();
 }
 
 }

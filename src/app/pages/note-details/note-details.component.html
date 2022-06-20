@@ -3,21 +3,21 @@
         <div class="field">
             <label class="label">Title</label>
             <div class="control">
-                <input type="text" name="title" required class="input" ngModel="note.title" placeholder="Input Title">
+                <input type="text" name="title" required class="input" [(ngModel)]="note.title" placeholder="Input Title">
             </div>
         </div>
         <br>
         <div class="field">
             <label class="label">Body</label>
-            <div class="control"><textarea class="textarea" required name="body" ngModel="note.body"></textarea></div>
+            <div class="control"><textarea class="textarea" name="body" [(ngModel)]="note.body" placeholder="Input Body"></textarea></div>
         </div>
 
         <div class="field is-grouped is-pulled-right">
             <div class="control">
-                <button class="button is-text" type="button">Cancel</button>
+                <button class="button is-text" (click)="onCancel()" type="button">Cancel</button>
             </div>
             <div class="control">
-                <button class="button is-primary" type="submit">Save</button>
+                <button class="button is-primary" type="submit" [disabled]="!noteForm.valid">Save</button>
             </div>
         </div>
 
